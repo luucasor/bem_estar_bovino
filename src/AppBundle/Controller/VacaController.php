@@ -70,7 +70,7 @@ class VacaController extends Controller
     {
 
         $vaca = new Vaca($request->get('weight'), $request->get('age'), $request->get('price'));
-        $vaca->setId($id);
+        $vaca->setId($request->get('id'));
 
         $this->dao->editaVaca($vaca);
         return $this->redirectToRoute('listagem');

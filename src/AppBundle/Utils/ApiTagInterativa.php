@@ -12,9 +12,12 @@ class ApiTagInterativa {
   private $client;
   private $base_uri = ['base_uri' => 'http://recrutamento.taginterativa.com.br/api/'];
   private $headers  = ['Accept'  => 'application/json', 'access-token' => '135448aee2'];
+  private $logger;
 
   public function __construct(){
     $this->client = new Client($this->base_uri);
+    $this->logger = new Logger('logger');
+    $this->logger->pushHandler(new StreamHandler('logger.log', Logger::DEBUG));
   }
 
   public function adicionaVaca($vaca){
@@ -22,14 +25,11 @@ class ApiTagInterativa {
     $uri        = 'v1/cows';
     $body = $vaca->getJsonData();
 
-    $logger = new Logger('logger');
-    $logger->pushHandler(new StreamHandler('logger.log', Logger::DEBUG));
-
     $response = $this->client->request($method, $uri, ['headers' => $this->headers,'form_params' => $body]);
 
     $json = $response->getBody();
     $vaca = Vaca::getVacaObject($json);
-    $logger->info('response:: '.print_r($vaca,1));
+    $this->logger->info('Api.adicionaVaca.response:: '.print_r($vaca,1));
     return $vaca;
   }
 
@@ -40,7 +40,9 @@ class ApiTagInterativa {
 
 
     $json = $response->getBody();
-    return Vaca::getVacaObject($json);
+    $vaca = Vaca::getVacaObject($json);
+    $this->logger->info('Api.buscaVaca.response:: '.print_r($vaca,1));
+    return $vaca;
   }
 
   public function editaVaca($vaca){
@@ -52,6 +54,7 @@ class ApiTagInterativa {
 
     $json = $response->getBody();
     $vaca = Vaca::getVacaObject($json);
+    $this->logger->info('Api.editaVaca.response:: '.print_r($vaca,1));
   }
 
   public function removeVaca($id){
@@ -59,6 +62,7 @@ class ApiTagInterativa {
     $uri        = 'v1/cows/'.$id;
 
     $json = $this->client->request($method, $uri, ['headers' => $this->headers]);
+    $this->logger->info('Api.removeVaca.response:: '.print_r($json,1));
 
     return $json;
   }

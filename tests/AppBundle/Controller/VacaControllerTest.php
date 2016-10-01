@@ -67,7 +67,7 @@ class VacaControllerTest extends PHPUnit_Framework_TestCase
      }
 
      public function testAtualizarDadosDeUmaVaquinhaExistente(){
-       $idVaca     = 291;
+       $idVaca     = 369;
        $weight     = 680;
        $method     = 'PUT';
        $uri        = 'v1/cows/'.$idVaca;

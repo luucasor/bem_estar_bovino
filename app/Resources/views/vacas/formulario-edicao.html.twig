@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
   <div class="container col-md-offset-4">
-      <form style="padding-top:20px" class="form-horizontal" enctype="multipart/form-data" action="/vacas/adiciona" method="post">
+      <form style="padding-top:20px" class="form-horizontal" enctype="multipart/form-data" action="/vacas/edita" method="post">
+
+          <input type="hidden" name="id" value="{{ vaca.id|e }}">
+
           <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-4">
               <div class="form-group">
