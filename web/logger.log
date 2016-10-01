@@ -1,0 +1,2 @@
+[2016-10-01 16:44:26] logger.INFO: response:: AppBundle\Model\Vaca Object (     [id:AppBundle\Model\Vaca:private] => 373     [weight:AppBundle\Model\Vaca:private] => 222     [age:AppBundle\Model\Vaca:private] => 2     [price:AppBundle\Model\Vaca:private] => 229 )  [] []
+[2016-10-01 16:44:39] logger.INFO: response:: AppBundle\Model\Vaca Object (     [id:AppBundle\Model\Vaca:private] => 374     [weight:AppBundle\Model\Vaca:private] => 221     [age:AppBundle\Model\Vaca:private] => 2     [price:AppBundle\Model\Vaca:private] => 229 )  [] []

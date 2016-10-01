@@ -48,10 +48,31 @@ class VacaController extends Controller
      */
     public function adiciona(Request $request)
     {
-
         $vaca = new Vaca($request->get('weight'), $request->get('age'), $request->get('price'));
 
         $this->dao->adicionaVaca($vaca);
+        return $this->redirectToRoute('listagem');
+    }
+
+    /**
+     * @Route("/vacas/mostra/{id}", name="mostra")
+     */
+    public function mostra($id)
+    {
+      $vaca = $this->dao->buscaVaca($id);
+      return $this->render('vacas/formulario-edicao.html.twig', array('vaca' => $vaca));
+    }
+
+    /**
+     * @Route("/vacas/edita", name="edita")
+     */
+    public function edita(Request $request)
+    {
+
+        $vaca = new Vaca($request->get('weight'), $request->get('age'), $request->get('price'));
+        $vaca->setId($id);
+
+        $this->dao->editaVaca($vaca);
         return $this->redirectToRoute('listagem');
     }
 }
