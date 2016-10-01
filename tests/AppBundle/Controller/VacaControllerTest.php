@@ -27,24 +27,28 @@ class VacaControllerTest extends PHPUnit_Framework_TestCase
         $listaVacas = Vaca::getVacaObjectList($json);
 
         foreach ($listaVacas as $vaca) {
+          error_log($vaca->getId());
           error_log($vaca->getWeight());
+          error_log($vaca->getAge());
+          error_log($vaca->getPrice());
+          error_log("----------------");
         }
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    // public function testAdicionarNovaVaquinha(){
-    //   $method     = 'POST';
-    //   $uri        = 'v1/cows';
-    //
-    //   $vaca = new Vaca(650, 9, 798.00);
-    //   $body = $vaca->getJsonData();
-    //   $response = $this->client->request($method, $uri, ['headers' => $this->headers,'form_params' => $body]);
-    //
-    //   $json = $response->getBody();
-    //   $vaca = Vaca::getVacaObject($json);
-    //
-    //   $this->assertNotEquals(null, $vaca->getId());
-    //   error_log('ID Retornado: '.$vaca->getId());
-    // }
+     public function testAdicionarNovaVaquinha(){
+       $method     = 'POST';
+       $uri        = 'v1/cows';
+    
+       $vaca = new Vaca(650, 9, 798.00);
+       $body = $vaca->getJsonData();
+       $response = $this->client->request($method, $uri, ['headers' => $this->headers,'form_params' => $body]);
+    
+       $json = $response->getBody();
+       $vaca = Vaca::getVacaObject($json);
+    
+       $this->assertNotEquals(null, $vaca->getId());
+       error_log('ID Retornado: '.$vaca->getId());
+     }
 
 }
