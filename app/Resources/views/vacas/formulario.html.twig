@@ -1,45 +1,50 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-  <div class="container col-md-offset-4">
-      <form style="padding-top:20px" class="form-horizontal" enctype="multipart/form-data" action="/vacas/adiciona" method="post">
+  <div class="container">
+      <form class="form-horizontal" style="padding-top:20px" enctype="multipart/form-data" action="/vacas/adiciona" method="post">
+
+          <input type="hidden" name="tipo" value="adicionada">
+
           <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4">
-              <div class="form-group">
-                <label>Peso</label>
-                <input type="text" name="weight" id="weight" class="form-control input-md" tabindex="1">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4">
-              <div class="form-group">
-                <label>Idade</label>
-                <input type="text" name="age" id="age" class="form-control input-md" tabindex="2">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4">
-              <div class="form-group">
-                <label>Preço</label>
-                <input type="text" name="price" id="price" class="form-control input-md" tabindex="3">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-              <table width="325px">
-                <tr>
-                  <td align="left">
-                    <button type="button" class="btn btn-default" onclick="javascript:document.location = '/vacas';">Cancelar</button>
-                  </td>
-                  <td align="right">
-                    <button type="submit" class="btn btn-primary">Adicionar</button>
-                  </td>
-                </tr>
-              </table>
+             <h2>Adicionar</h2><br>
+             <div class="col-xs-12 col-sm-4 col-md-6">
+               <div class="form-group">
+                 <label for="age">Idade (<span id="mySpan">1</span>)</label>
+                 <input type="range" name="age" id="age" class="form-control input-md" tabindex="1" required="required" min="1" max="30"  title="Anos de idade" value="1">
+               </div>
+               <div class="form-group">
+                 <label for="weight">Peso</label>
+                 <div class="input-group">
+                   <input type="number" name="weight" id="weight" class="form-control input-md" tabindex="2" required="required" maxlength="8">
+                   <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                 </div>
+               </div>
+               <div class="form-group">
+                 <label for="price">Preço</label>
+                 <div class="input-group">
+                   <span class="input-group-addon">R$</span>
+                   <input type="number" name="price" id="price" class="form-control input-md" tabindex="3" required="required" maxlength="15" title="Valor Monetário">
+                   <span class="input-group-addon">.00</span>
+                 </div>
+               </div>
+               <div class="form-group">
+                 <button type="button" class="btn btn-default" tabindex="5" onclick="javascript:document.location = '/vacas';">Cancelar</button>
+                 <button type="submit" class="btn btn-primary" tabindex="4">Adicionar</button>
+               </div>
+             </div>
           </div>
       </form>
   </div>
 {% endblock %}
 {% block javascripts %}
+<script type="text/javascript">
+
+var $range = document.querySelector('#age'),
+  $value = document.querySelector('#mySpan');
+
+$range.addEventListener('input', function() {
+  $value.textContent = this.value;
+});
+
+</script>
 {% endblock %}

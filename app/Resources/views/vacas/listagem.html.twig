@@ -1,56 +1,55 @@
 {% extends 'base.html.twig' %}
 {% block body %}
       <div class="container">
-        <div class="row">
-          <div class="col-md-12 col-xs-12 col-sm-3">
-            <h3>Listagem de vacas</h3>
-            {% if removido is defined %}
-              <div class="alert alert-success">
-                <strong>Sucesso!</strong>
-                    A vaca foi removida.
-              </div>
-            {% endif %}
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <h2>Listagem de vacas</h2>
 
-            <form class="navbar-form navbar-right">
-              <div class="form-group">
-                <input id="filtro-nome" type="text" class="form-control" placeholder="Digite a referência ou nome do produto..." style="min-width:300px;">
-              </div>
-            </form>
-          </div>
-          <div class="col-md-12 col-xs-12 col-sm-3">
-            <table class="table table-responsive" id="lista">
-              <thead>
-                <tr class="indices">
-                  <td>Id</td>
-                  <td>Peso</td>
-                  <td class="hidden-xs">Idade</td>
-                  <td class="hidden-xs">Preço</td>
-                  <td colspan="3">Ações</td>
-                </tr>
-              </thead>
-              <tbody>
-                {% for vaca in vacas %}
-                <tr>
-                  <td id="id">{{ vaca.id|e }}</td>
-                  <td id="peso">{{ vaca.weight|e }}</td>
-                  <td id="idade">{{ vaca.age|e }}</td>
-                  <td id="preco">{{ vaca.price|e }}</td>
-                  <td>
-                    <a href="javascript:confirmar({{ vaca.id|e }});"><span class="glyphicon glyphicon-trash"></span></a>
-                  </td>
-                  <td>
-                    <a href="/vacas/mostra/{{ vaca.id|e }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
+          {% if tipo is defined %}
+            <div id="message" class="alert alert-success fade in" onmousemove="closeAlert();">
+              <strong>Sucesso!</strong>
+                  A vaca foi {{ tipo|e }}.
+              <a class="close" data-dismiss="alert" href="#">&times;</a>
             </div>
-            </table>
+          {% endif %}
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <td>Id</td>
+                <td>Peso</td>
+                <td class="hidden-xs hidden-sm">Idade</td>
+                <td class="hidden-xs hidden-sm">Preço</td>
+                <td colspan="2">Ações</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for vaca in vacas %}
+              <tr>
+                <td id="id">{{ vaca.id|e }}</td>
+                <td id="peso">{{ vaca.weight|e }}</td>
+                <td class="hidden-xs hidden-sm" id="idade">{{ vaca.age|e }}</td>
+                <td class="hidden-xs hidden-sm" id="preco">{{ vaca.price|e }}</td>
+                <td>
+                  <a href="javascript:confirmar({{ vaca.id|e }});"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+                <td>
+                  <a href="/vacas/mostra/{{ vaca.id|e }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
 {% endblock %}
 {% block javascripts %}
 <script type="text/javascript">
+
+  function closeAlert(){
+    $('#message').alert('close');
+  }
+
   function confirmar(id){
     if(confirm('Confirmar a exclusão da vaca '+id+' ??')) {
       document.location = "/vacas/remove/"+id;
