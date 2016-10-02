@@ -1,47 +1,47 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-      <div class="container">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-          <h2>Listagem de vacas</h2>
+<div class="page-header text-left path">
+  <h4><b>Listagem de Vacas</b></h4>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-1">
 
-          {% if tipo is defined %}
-            <div id="message" class="alert alert-success fade in" onmousemove="closeAlert();">
-              <strong>Sucesso!</strong>
-                  A vaca foi {{ tipo|e }}.
-              <a class="close" data-dismiss="alert" href="#">&times;</a>
-            </div>
-          {% endif %}
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-          <table class="table">
-            <thead>
-              <tr>
-                <td>Id</td>
-                <td>Peso</td>
-                <td class="hidden-xs hidden-sm">Idade</td>
-                <td class="hidden-xs hidden-sm">Preço</td>
-                <td colspan="2">Ações</td>
-              </tr>
-            </thead>
-            <tbody>
-              {% for vaca in vacas %}
-              <tr>
-                <td id="id">{{ vaca.id|e }}</td>
-                <td id="peso">{{ vaca.weight|e }}</td>
-                <td class="hidden-xs hidden-sm" id="idade">{{ vaca.age|e }}</td>
-                <td class="hidden-xs hidden-sm" id="preco">{{ vaca.price|e }}</td>
-                <td>
-                  <a href="javascript:confirmar({{ vaca.id|e }});"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-                <td>
-                  <a href="/vacas/mostra/{{ vaca.id|e }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
+  {% if tipo is defined %}
+    <div id="message" class="alert alert-success fade in" onmousemove="closeAlert();">
+      <strong>Sucesso!</strong>
+          A vaca foi {{ tipo|e }}.
+      <a class="close" data-dismiss="alert" href="#">&times;</a>
+    </div>
+  {% endif %}
+</div>
+<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
+  <table class="table">
+    <thead>
+      <tr class="indices">
+        <td>Id</td>
+        <td>Peso</td>
+        <td class="hidden-xs hidden-sm">Idade</td>
+        <td>Preço</td>
+        <td colspan="2">Ações</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vaca in vacas %}
+      <tr>
+        <td id="id">{{ vaca.id|e }}</td>
+        <td id="peso">{{ vaca.weight|e }}</td>
+        <td class="hidden-xs hidden-sm" id="idade">{{ vaca.age|e }}</td>
+        <td id="preco">R$ {{ vaca.price|e }}</td>
+        <td>
+          <a href="javascript:confirmar({{ vaca.id|e }});"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+        <td>
+          <a href="/vacas/mostra/{{ vaca.id|e }}"><span class="glyphicon glyphicon-pencil"></span></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}
 {% block javascripts %}
 <script type="text/javascript">

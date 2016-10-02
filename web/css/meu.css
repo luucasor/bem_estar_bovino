@@ -1,0 +1,16 @@
+.path {
+  color:white;
+  padding-top: 20px;
+  padding-left:10px;
+  background:-webkit-linear-gradient(left top, grey, CornflowerBlue );
+  height:60px;
+}
+
+.indices {
+  font-weight: bold;
+  font-size: 120%;
+}
+
+body {
+  overflow-x: hidden;
+}

@@ -4,16 +4,18 @@
         <meta charset="UTF-8" />
 
         <title>{% block title %}Bem Estar Bovino{% endblock %}</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}" />
+
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
         <link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/meu.css') }}"/>
 
         <script src="{{ asset('js/jquery-3.1.1.min.js')}}"></script>
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
     </head>
     <body>
       <header>
-          <nav class="navbar navbar-default">
+          <nav class="navbar navbar-default navbar-fixed-top">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/vacas">
                     Bem Estar Bovino
