@@ -14,19 +14,26 @@ class GerenciadorCusto {
   private $mediaVida = 20;
   private $diasDeTrabalhoNoAno = 365;
 
+  public $pastoMensal;
+  public $custoAnual;
+  public $custoBeneficio;
+
   public function __construct($vaca){
     $this->vaca = $vaca;
+    $this->pastoMensal    = $this->custoPastoMensal();
+    $this->pastoAnual     = $this->custoPastoAnual();
+    $this->custoBeneficio = $this->custoBeneficio();
   }
 
-  public function custoPastoMensal(){
+  private function custoPastoMensal(){
     return $this->custoPastoDiario() * $this->mes;
   }
 
-  public function custoPastoAnual(){
+  private function custoPastoAnual(){
     return $this->custoPastoDiario() * $this->ano;
   }
 
-  public function custoBeneficio(){
+  private function custoBeneficio(){
     return $this->custoTotal() / $this->diasComoMascote();
   }
 
@@ -34,7 +41,7 @@ class GerenciadorCusto {
     $melhorVaca = new Vaca(INF, 20, INF);
 
     foreach ($vacas as $vaca) {
-      if($vaca->getCustoBeneficio() < $melhorVaca->getCustoBeneficio())
+      if($vaca->gerenciadorCusto->custoBeneficio < $melhorVaca->gerenciadorCusto->custoBeneficio)
           $melhorVaca = $vaca;
     }
 

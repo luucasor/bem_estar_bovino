@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Utils\ApiTagInterativa;
+use AppBundle\Utils\GerenciadorCusto;
 use AppBundle\Model\Vaca;
 
 class VacaController extends Controller
@@ -23,7 +24,8 @@ class VacaController extends Controller
     public function listar(Request $request)
     {
         $vacas = $this->dao->listaVacas();
-        return $this->render('vacas/listagem.html.twig', array('vacas' => $vacas));
+        $melhorVaca = GerenciadorCusto::melhorVaca($vacas);
+        return $this->render('vacas/listagem.html.twig', array('vacas' => $vacas, 'melhorVaca' => $melhorVaca));
     }
 
     /**

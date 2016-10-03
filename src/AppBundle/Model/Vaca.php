@@ -10,16 +10,13 @@ class Vaca {
   private $weight;
   private $age;
   private $price;
+  public $gerenciadorCusto;
 
   public function __construct($weight, $age, $price){
     $this->weight          = $weight;
     $this->age             = $age;
     $this->price           = $price;
-  }
-
-  public function getCustoBeneficio(){
-    $gerenciadorCusto = new GerenciadorCusto($this);
-    return $gerenciadorCusto->custoBeneficio();
+    $this->gerenciadorCusto = new GerenciadorCusto($this);
   }
 
   public function setId($valor){

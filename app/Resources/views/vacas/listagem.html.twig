@@ -18,19 +18,25 @@
     <thead>
       <tr class="indices">
         <td>Id</td>
-        <td>Peso</td>
-        <td class="hidden-xs hidden-sm">Idade</td>
-        <td>Preço</td>
+        <td class="hidden-xs">Peso</td>
+        <td class="hidden-xs">Idade</td>
+        <td class="hidden-xs">Preço</td>
+        <td class="hidden-xs hidden-sm">Pasto Mensal</td>
+        <td class="hidden-xs hidden-sm">Pasto Anual</td>
+        <td>Custo Benefício</td>
         <td colspan="2">Ações</td>
       </tr>
     </thead>
     <tbody>
       {% for vaca in vacas %}
-      <tr>
+      <tr class="{{ vaca.gerenciadorCusto.custoBeneficio == melhorVaca.gerenciadorCusto.custoBeneficio ? 'success' : '' }} ">
         <td id="id">{{ vaca.id|e }}</td>
-        <td id="peso">{{ vaca.weight|e }}</td>
-        <td class="hidden-xs hidden-sm" id="idade">{{ vaca.age|e }}</td>
-        <td id="preco">R$ {{ vaca.price|e }}</td>
+        <td id="peso" class="hidden-xs">{{ vaca.weight|e }}</td>
+        <td id="idade" class="hidden-xs">{{ vaca.age|e }}</td>
+        <td id="preco" class="hidden-xs">R$ {{ vaca.price|e }}</td>
+        <td id="pastoMensal" class="hidden-xs hidden-sm">R$ {{ vaca.gerenciadorCusto.pastoMensal|e }}</td>
+        <td id="pastoAnual" class="hidden-xs hidden-sm">R$ {{ vaca.gerenciadorCusto.pastoAnual|e }}</td>
+        <td id="custoBeneficio">R$ {{ vaca.gerenciadorCusto.custoBeneficio|e }}</td>
         <td>
           <a href="javascript:confirmar({{ vaca.id|e }});"><span class="glyphicon glyphicon-trash"></span></a>
         </td>
