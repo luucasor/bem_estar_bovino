@@ -29,7 +29,7 @@
     </thead>
     <tbody>
       {% for vaca in vacas %}
-      <tr class="{{ vaca.gerenciadorCusto.custoBeneficio == melhorVaca.gerenciadorCusto.custoBeneficio ? 'success' : '' }} ">
+      <tr>
         <td id="id">{{ vaca.id|e }}</td>
         <td id="peso" class="hidden-xs">{{ vaca.weight|e }}</td>
         <td id="idade" class="hidden-xs">{{ vaca.age|e }}</td>
@@ -47,6 +47,7 @@
       {% endfor %}
     </tbody>
   </table>
+  {{ vacas|length }} Registros
 </div>
 {% endblock %}
 {% block javascripts %}

@@ -67,13 +67,37 @@ class ApiTagInterativa {
     return $json;
   }
 
-  public function listaVacas(){
-    $method     = 'GET';
-    $uri        = 'v1/cows';
+  public function listaVacas()
+  {
+      $method       = 'GET';
+      $uri          = 'v1/cows';
+      $listaVacas   = array();
+      $statusCode   = 200;
+      $offset       = 0;
+      $limit        = 7;
 
-    $response = $this->client->request($method, $uri, ['headers' => $this->headers]);
-    $json = $response->getBody();
+      while ($statusCode == 200) {
+          $response = $this->client->request($method, $uri."?limit=".$limit."&offset=".$offset, ['headers' => $this->headers]);
+          $statusCode = $response->getStatusCode();
 
-    return Vaca::getVacaObjectList($json);
+          if($statusCode == 204) break;
+
+          $json = $response->getBody();
+          foreach (json_decode($json, true) as $value) {
+            $vaca = Vaca::getVacaObject($value);
+            array_push($listaVacas, $vaca);
+          }
+
+          error_log($statusCode);
+          $offset+=$limit;
+      }
+
+
+      foreach ($listaVacas as $vaca) {
+        error_log($vaca->getWeight());
+      }
+
+      error_log("Tamanho Lista::: ".count($listaVacas));
+      return $listaVacas;
   }
 }

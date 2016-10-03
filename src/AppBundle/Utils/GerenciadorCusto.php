@@ -15,7 +15,7 @@ class GerenciadorCusto {
   private $diasDeTrabalhoNoAno = 365;
 
   public $pastoMensal;
-  public $custoAnual;
+  public $pastoAnual;
   public $custoBeneficio;
 
   public function __construct($vaca){
