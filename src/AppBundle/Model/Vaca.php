@@ -2,6 +2,8 @@
 
 namespace AppBundle\Model;
 
+use AppBundle\Utils\GerenciadorCusto;
+
 class Vaca {
 
   private $id;
@@ -10,9 +12,14 @@ class Vaca {
   private $price;
 
   public function __construct($weight, $age, $price){
-    $this->weight = $weight;
-    $this->age    = $age;
-    $this->price  = $price;
+    $this->weight          = $weight;
+    $this->age             = $age;
+    $this->price           = $price;
+  }
+
+  public function getCustoBeneficio(){
+    $gerenciadorCusto = new GerenciadorCusto($this);
+    return $gerenciadorCusto->custoBeneficio();
   }
 
   public function setId($valor){
