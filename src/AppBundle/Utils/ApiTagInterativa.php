@@ -55,6 +55,7 @@ class ApiTagInterativa {
     $json = $response->getBody();
     $vaca = Vaca::getVacaObjectByJson($json);
     $this->logger->info('Api.editaVaca.response:: '.print_r($vaca,1));
+    return $vaca;
   }
 
   public function removeVaca($id){
@@ -64,7 +65,7 @@ class ApiTagInterativa {
     $json = $this->client->request($method, $uri, ['headers' => $this->headers]);
     $this->logger->info('Api.removeVaca.response:: '.print_r($json,1));
 
-    return $json;
+    return $json->getStatusCode();
   }
 
   public function listaVacas()
