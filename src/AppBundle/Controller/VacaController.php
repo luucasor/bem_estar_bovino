@@ -23,15 +23,16 @@ class VacaController extends Controller
      */
     public function listar(Request $request)
     {
-        $logger = $this->get('logger');
-
-        $paginas = array();
-
         $vacas = $this->dao->listaVacas();
-        $logger->info('Vacas::: '.count($vacas));
-
         $melhorVaca = GerenciadorCusto::melhorVaca($vacas);
-        return $this->render('vacas/listagem.html.twig', array('vacas' => $vacas, 'melhorVaca' => true));
+
+        $registros = count($vacas);
+
+        $paginas = ceil(count($vacas) / 7);
+        return $this->render('vacas/listagem.html.twig', array('vacas' => $vacas,
+                                                               'melhorVaca' => $melhorVaca,
+                                                               'paginas' => $paginas,
+                                                               'registros' => $registros));
     }
 
     /**

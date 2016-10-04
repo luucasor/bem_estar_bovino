@@ -4,11 +4,16 @@
   padding-left:10px;
   background:-webkit-linear-gradient(left top, grey, CornflowerBlue );
   height:60px;
-}
 
+}
 .indices {
   font-weight: bold;
   font-size: 120%;
+  text-align: center;
+}
+
+.valores{
+  text-align: center;
 }
 
 body {

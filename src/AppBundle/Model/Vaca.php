@@ -62,22 +62,17 @@ class Vaca {
     return $var;
   }
 
-  public static function getVacaObject($stdObject){
-    $vaca = new Vaca($stdObject['weight'], $stdObject['age'], $stdObject['price']);
-    $vaca->setId($stdObject['id']);
+  public static function getVacaObjectByJson($json){
+    $stdObject = json_decode($json);
+    $vaca = new Vaca($stdObject->{'weight'}, $stdObject->{'age'}, $stdObject->{'price'});
+    $vaca->setId($stdObject->{'id'});
     return $vaca;
   }
 
-  public static function getVacaObjectList($json){
-    $stdObjectList = json_decode($json);
-    $listaVacas    = array();
+  public static function getVacaObjectByStd($stdObject){
+    $vaca = new Vaca($stdObject->{'weight'}, $stdObject->{'age'}, $stdObject->{'price'});
+    $vaca->setId($stdObject->{'id'});
 
-    foreach ($stdObjectList as $stdVaca) {
-      $vaca = new Vaca($stdVaca->{'weight'}, $stdVaca->{'age'}, $stdVaca->{'price'});
-      $vaca->setId($stdVaca->{'id'});
-      array_push($listaVacas, $vaca);
-    }
-
-    return $listaVacas;
+    return $vaca;
   }
 }

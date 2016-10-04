@@ -28,7 +28,7 @@ class ApiTagInterativa {
     $response = $this->client->request($method, $uri, ['headers' => $this->headers,'form_params' => $body]);
 
     $json = $response->getBody();
-    $vaca = Vaca::getVacaObject($json);
+    $vaca = Vaca::getVacaObjectByJson($json);
     $this->logger->info('Api.adicionaVaca.response:: '.print_r($vaca,1));
     return $vaca;
   }
@@ -40,7 +40,7 @@ class ApiTagInterativa {
 
 
     $json = $response->getBody();
-    $vaca = Vaca::getVacaObject($json);
+    $vaca = Vaca::getVacaObjectByJson($json);
     $this->logger->info('Api.buscaVaca.response:: '.print_r($vaca,1));
     return $vaca;
   }
@@ -53,7 +53,7 @@ class ApiTagInterativa {
     $response = $this->client->request($method, $uri, ['headers' => $this->headers,'form_params' => $body]);
 
     $json = $response->getBody();
-    $vaca = Vaca::getVacaObject($json);
+    $vaca = Vaca::getVacaObjectByJson($json);
     $this->logger->info('Api.editaVaca.response:: '.print_r($vaca,1));
   }
 
@@ -83,21 +83,16 @@ class ApiTagInterativa {
           if($statusCode == 204) break;
 
           $json = $response->getBody();
-          foreach (json_decode($json, true) as $value) {
-            $vaca = Vaca::getVacaObject($value);
+          $stdObjectList = json_decode($json);
+
+          foreach($stdObjectList as $stdObject) {
+            $vaca = Vaca::getVacaObjectByStd($stdObject);
             array_push($listaVacas, $vaca);
           }
 
-          error_log($statusCode);
           $offset+=$limit;
       }
 
-
-      foreach ($listaVacas as $vaca) {
-        error_log($vaca->getWeight());
-      }
-
-      error_log("Tamanho Lista::: ".count($listaVacas));
       return $listaVacas;
   }
 }

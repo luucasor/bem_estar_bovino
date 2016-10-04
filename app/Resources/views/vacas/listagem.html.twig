@@ -3,16 +3,6 @@
 <div class="page-header text-left path">
   <h4><b>Listagem de Vacas</b></h4>
 </div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-1">
-
-  {% if tipo is defined %}
-    <div id="message" class="alert alert-success fade in" onmousemove="closeAlert();">
-      <strong>Sucesso!</strong>
-          A vaca foi {{ tipo|e }}.
-      <a class="close" data-dismiss="alert" href="#">&times;</a>
-    </div>
-  {% endif %}
-</div>
 <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
   <table class="table">
     <thead>
@@ -27,16 +17,16 @@
         <td colspan="2">Ações</td>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="conteudo">
       {% for vaca in vacas %}
-      <tr>
+     <tr class="valores {{ vaca.gerenciadorCusto.custoBeneficio == melhorVaca.gerenciadorCusto.custoBeneficio ? 'alert-info' : '' }} ">
         <td id="id">{{ vaca.id|e }}</td>
         <td id="peso" class="hidden-xs">{{ vaca.weight|e }}</td>
         <td id="idade" class="hidden-xs">{{ vaca.age|e }}</td>
         <td id="preco" class="hidden-xs">R$ {{ vaca.price|e }}</td>
         <td id="pastoMensal" class="hidden-xs hidden-sm">R$ {{ vaca.gerenciadorCusto.pastoMensal|e }}</td>
         <td id="pastoAnual" class="hidden-xs hidden-sm">R$ {{ vaca.gerenciadorCusto.pastoAnual|e }}</td>
-        <td id="custoBeneficio">R$ {{ vaca.gerenciadorCusto.custoBeneficio|e }}</td>
+        <td id="custoBeneficio"> {{ vaca.gerenciadorCusto.custoBeneficio|e }}</td>
         <td>
           <a href="javascript:confirmar({{ vaca.id|e }});"><span class="glyphicon glyphicon-trash"></span></a>
         </td>
@@ -45,9 +35,10 @@
         </td>
       </tr>
       {% endfor %}
+
     </tbody>
   </table>
-  {{ vacas|length }} Registros
+  Total de Registros: {{ registros }}
 </div>
 {% endblock %}
 {% block javascripts %}
@@ -62,5 +53,7 @@
       document.location = "/vacas/remove/"+id;
     }
   }
+
+
 </script>
 {% endblock %}

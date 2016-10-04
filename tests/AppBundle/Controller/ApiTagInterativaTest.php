@@ -19,60 +19,30 @@ class VacaControllerTest extends PHPUnit_Framework_TestCase
 
     public function testConexaoListagemVacas()
     {
-        $method       = 'GET';
-        $uri          = 'v1/cows';
-        $listaVacas   = array();
-        $statusCode   = 200;
-        $offset       = 0;
-        $limit        = 7;
-
-        while ($statusCode == 200) {
-            $response = $this->client->request($method, $uri."?limit=".$limit."&offset=".$offset, ['headers' => $this->headers]);
-            $statusCode = $response->getStatusCode();
-
-            if($statusCode == 204) break;
-
-            $json = $response->getBody();
-            foreach (json_decode($json, true) as $value) {
-              $vaca = Vaca::getVacaObject($value);
-              array_push($listaVacas, $vaca);
-            }
-
-            error_log($statusCode);
-            $offset+=$limit;
-        }
-
-
-        foreach ($listaVacas as $vaca) {
-          error_log($vaca->getWeight());
-        }
-
-        error_log("Tamanho Lista::: ".count($listaVacas));
-        return $listaVacas;
-    }
-
-    public function listaVacas(){
       $method       = 'GET';
-      $limit        = 2;
-      $offset       = 0;
       $uri          = 'v1/cows';
       $listaVacas   = array();
-      $codeResponse = 200;
+      $statusCode   = 200;
+      $offset       = 0;
+      $limit        = 7;
 
+      while ($statusCode == 200) {
+          $response = $this->client->request($method, $uri."?limit=".$limit."&offset=".$offset, ['headers' => $this->headers]);
+          $statusCode = $response->getStatusCode();
 
-      for ($i= 0; $codeResponse == 200 ; $i++) {
-        $response = $this->client->request($method, $uri."?limit={$limit}&offset={$offset}", ['headers' => $this->headers]);
+          if($statusCode == 204) break;
 
-        if($response->getStatusCode() == 200){
           $json = $response->getBody();
-          $vacas = Vaca::getVacaObjectList($json);
-          array_push($listaVacas, $vacas);
+          $stdObjectList = json_decode($json);
 
-          $offset+= $limit;
-        }
-        $codeResponse = $response->getStatusCode();
+          foreach($stdObjectList as $stdObject) {
+            $vaca = Vaca::getVacaObject($stdObject);
+            array_push($listaVacas, $vaca);
+          }
+
+          $offset+=$limit;
       }
 
-      return $listaVacas;
+      $this->assertEquals(22, count($listaVacas));
     }
 }
