@@ -4,7 +4,12 @@
   <h4><b>Listagem de Vacas</b></h4>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
-  <table class="table">
+  <div class="navbar-form navbar-right">
+    <div class="form-group">
+      <input id="filtro-id" type="text" class="form-control" placeholder="Digite o id da vaquinha para busca...">
+    </div>
+  </div>
+  <table class="table" id="lista">
     <thead>
       <tr class="indices">
         <td>Id</td>
@@ -20,7 +25,7 @@
     <tbody id="conteudo">
       {% for vaca in vacas %}
      <tr class="valores {{ vaca.gerenciadorCusto.custoBeneficio == melhorVaca.gerenciadorCusto.custoBeneficio ? 'alert-info' : '' }} ">
-        <td id="id">{{ vaca.id|e }}</td>
+        <td id="identificador">{{ vaca.id|e }}</td>
         <td id="peso" class="hidden-xs">{{ vaca.weight|e }}</td>
         <td id="idade" class="hidden-xs">{{ vaca.age|e }}</td>
         <td id="preco" class="hidden-xs">R$ {{ vaca.price|e }}</td>
@@ -44,16 +49,23 @@
 {% block javascripts %}
 <script type="text/javascript">
 
-  function closeAlert(){
-    $('#message').alert('close');
-  }
-
   function confirmar(id){
     if(confirm('Confirmar a exclusão da vaca '+id+' ??')) {
       document.location = "/vacas/remove/"+id;
     }
   }
 
+  jQuery('#filtro-id').keyup(function() {
+      var valorFiltro = $(this).val().toLowerCase();
+      var corresponde = false;
+      jQuery('#lista>tbody').find('tr').each(function() {
+          var conteudoCelulaId = jQuery(this).find('td#identificador').text();
+          var corresponde = conteudoCelulaId.indexOf(valorFiltro) >= 0;
+          jQuery(this).css(
 
+              'display', corresponde ? '' : 'none'
+          );
+      });
+  });
 </script>
 {% endblock %}
